@@ -17,7 +17,7 @@
                     <div class="select is-fullwidth" id="CurrencySelect">
                         <select id="CurrencyCode" name="CurrencyCode" required>
                             <option value="" selected disabled>Selecciona una moneda</option>
-                            <option value="BOLIVAR FUERTE VENEZOLANO" data-code="VEF">Bolívar venezolano</option>
+                            <option value="BOLIVAR FUERTE VENEZOLANO">Bolívar venezolano</option>
                             <option value="CORONA DANESA" data-code="DKK">Corona danesa</option>
                             <option value="CORONA NORUEGA" data-code="NOK">Corona noruega</option>
                             <option value="CORONA SUECA" data-code="SEK">Corona sueca</option>
@@ -44,13 +44,25 @@
                 </div>
             </div>
 
+            <div class="field">
+                <label class="label" for="LocalAmount">Monto en moneda local</label>
+                <div class="field has-addons">
+                    <div class="control">
+                        <span class="button is-static">DOP</span>
+                    </div>
+                    <div class="control is-expanded">
+                        <input class="input" id="LocalAmount" name="LocalAmount" type="number" min="0" step="any" required />
+                    </div>
+                </div>
+            </div>
+
             <hr />
 
             <h2 class="title is-5">Resultado</h2>
 
             <div aria-live="polite">
-                <p class="title is-4" id="ForeignRate">—</p>
-                <p class="subtitle is-6" id="LocalRate"></p>
+                <p class="title is-4" id="ConvertedAmount">—</p>
+                <p class="subtitle is-6" id="ForeignRate"></p>
                 <p class="help" id="RateInfo"></p>
             </div>
         </form>

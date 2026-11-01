@@ -1,6 +1,16 @@
 (function () {
     const monthCodes = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
 
+    const moneyFormat = new Intl.NumberFormat("es-DO", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const smallMoneyFormat = new Intl.NumberFormat("es-DO", { minimumSignificantDigits: 3, maximumSignificantDigits: 3 });
+    const localAmountFormat = new Intl.NumberFormat("es-DO", { minimumFractionDigits: 2, maximumFractionDigits: 4 });
+    const rateFormat = new Intl.NumberFormat("es-DO", { minimumFractionDigits: 2, maximumFractionDigits: 6 });
+
+    // Two decimals would round 1 DOP to 0.02 USD, so amounts below 1 keep their significant digits
+    const formatConverted = (value) => value > 0 && value < 1
+        ? smallMoneyFormat.format(value)
+        : moneyFormat.format(value);
+
     const toDateInputValue = (date) => {
         const month = String(date.getMonth() + 1).padStart(2, "0");
         const day = String(date.getDate()).padStart(2, "0");
@@ -14,15 +24,16 @@
 
     const currencyCode = signal("DOLAR ESTADOUNIDENSE");
     const rateDate = signal(toDateInputValue(new Date()));
+    const localAmount = signal(1);
     const rate = signal(null);
     const loading = signal(false);
 
     let pendingRequest = null;
 
-    const bindInput = (id, target, read = (input) => input.value) => {
+    const bindInput = (id, target, read = (input) => input.value, eventName = "change") => {
         const input = $(id);
         input.value = target.value;
-        input.addEventListener("change", () => {
+        input.addEventListener(eventName, () => {
             target.value = read(input);
         });
     };
@@ -77,8 +88,10 @@
     bindInput("CurrencyCode", currencyCode);
     // Out of range dates count as empty, so typing a year doesn't query or notify halfway through
     bindInput("RateDate", rateDate, (input) => input.validity.valid ? input.value : "");
+    // Only recalculates on the client, so it can follow every keystroke
+    bindInput("LocalAmount", localAmount, (input) => input.value && input.validity.valid ? Number(input.value) : null, "input");
 
-    // Without a submit button, pressing Enter on the date would still reload the page
+    // Results update on their own, so pressing Enter must not reload the page
     $("RateForm").addEventListener("submit", (event) => event.preventDefault());
 
     effect(() => {
@@ -100,17 +113,20 @@
         $("CurrencySelect").classList.toggle("is-loading", loading.value);
 
         if (!rate.value) {
-            $("ForeignRate").textContent = getEmptyMessage();
-            $("LocalRate").textContent = "";
+            $("ConvertedAmount").textContent = getEmptyMessage();
+            $("ForeignRate").textContent = "";
             $("RateInfo").textContent = "";
             return;
         }
 
         const label = getCurrencyLabel();
+        const amount = localAmount.value;
         const { year, monthCode, day } = parseDate(rateDate.value);
 
-        $("ForeignRate").textContent = `1 ${label} = ${rate.value} DOP`;
-        $("LocalRate").textContent = `1 DOP = ${(1 / rate.value).toFixed(4)} ${label}`;
+        $("ConvertedAmount").textContent = amount === null
+            ? "Ingresa un monto válido."
+            : `${localAmountFormat.format(amount)} DOP = ${formatConverted(amount / rate.value)} ${label}`;
+        $("ForeignRate").textContent = `1 ${label} = ${rateFormat.format(rate.value)} DOP`;
         $("RateInfo").textContent = `Tasa del ${day} ${monthCode.toLowerCase()} ${year}`;
     });
 })();
