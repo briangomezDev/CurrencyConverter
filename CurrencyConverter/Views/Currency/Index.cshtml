@@ -1,3 +1,4 @@
+@using DocumentFormat.OpenXml.Math
 @{
     ViewData["Title"] = "Conversor de moneda";
 }
@@ -90,7 +91,7 @@
                         <span class="button is-static">DOP</span>
                     </div>
                     <div class="control is-expanded">
-                        <input class="input" id="LocalAmount" name="LocalAmount" type="number" min="0" step="0.01" placeholder="0.00" required />
+                        <input class="input" id="LocalAmount" name="LocalAmount" type="number" value="1" readonly />
                     </div>
                 </div>
             </div>
@@ -115,12 +116,9 @@
                     </div>
                 </div>
             </div>
-
-            <div class="field">
-                <div class="control">
-                    <button class="button is-primary is-fullwidth" type="submit">Convertir</button>
-                </div>
-            </div>
         </form>
     </div>
 </div>
+@section scripts{
+    <script src="~/js/currency.js"></script>
+}
