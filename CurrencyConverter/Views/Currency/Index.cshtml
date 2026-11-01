@@ -1,0 +1,126 @@
+@{
+    ViewData["Title"] = "Conversor de moneda";
+}
+
+<div class="columns is-centered">
+    <div class="column is-10-tablet is-8-desktop is-7-widescreen">
+        <h1 class="title">Conversor de moneda</h1>
+        <p class="subtitle is-6">Convierte pesos dominicanos usando la tasa de una fecha.</p>
+
+        <form class="box" method="get" asp-controller="Currency" asp-action="Index">
+            <h2 class="title is-5">Tasa de cambio</h2>
+
+            <div class="field">
+                <label class="label" for="CurrencyCode">Moneda extranjera</label>
+                <div class="control">
+                    <div class="select is-fullwidth">
+                        <select id="CurrencyCode" name="CurrencyCode" required>
+                            <option value="" selected disabled>Selecciona una moneda</option>
+                            <option value="BOLIVAR FUERTE VENEZOLANO">Bolívar venezolano</option>
+                            <option value="CORONA DANESA">Corona danesa</option>
+                            <option value="CORONA NORUEGA">Corona noruega</option>
+                            <option value="CORONA SUECA">Corona sueca</option>
+                            <option value="DERECHO ESPECIAL DE GIRO">Derecho especial de giro</option>
+                            <option value="DOLAR AUSTRALIANO">Dólar australiano</option>
+                            <option value="DOLAR CANADIENSE">Dólar canadiense</option>
+                            <option value="DOLAR ESTADOUNIDENSE">Dólar estadounidense</option>
+                            <option value="EURO">Euro</option>
+                            <option value="FRANCO SUIZO">Franco suizo</option>
+                            <option value="LIBRA ESCOCESA">Libra escocesa</option>
+                            <option value="LIBRA ESTERLINA">Libra esterlina</option>
+                            <option value="REAL BRASILENO">Real brasileño</option>
+                            <option value="YEN JAPONES">Yen japonés</option>
+                            <option value="YUAN CHINO">Yuan chino</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="columns is-mobile">
+                <div class="column">
+                    <div class="field">
+                        <label class="label" for="Day">Día</label>
+                        <div class="control">
+                            <input class="input" id="Day" name="Day" type="number" min="1" max="31" placeholder="1" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label class="label" for="MonthCode">Mes</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select id="MonthCode" name="MonthCode" required>
+                                    <option value="" selected disabled>Mes</option>
+                                    <option value="Ene">Enero</option>
+                                    <option value="Feb">Febrero</option>
+                                    <option value="Mar">Marzo</option>
+                                    <option value="Abr">Abril</option>
+                                    <option value="May">Mayo</option>
+                                    <option value="Jun">Junio</option>
+                                    <option value="Jul">Julio</option>
+                                    <option value="Ago">Agosto</option>
+                                    <option value="Sep">Septiembre</option>
+                                    <option value="Oct">Octubre</option>
+                                    <option value="Nov">Noviembre</option>
+                                    <option value="Dic">Diciembre</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label class="label" for="Year">Año</label>
+                        <div class="control">
+                            <input class="input" id="Year" name="Year" type="number" min="2004" max="@DateTime.Now.Year" placeholder="@DateTime.Now.Year" required />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+
+            <h2 class="title is-5">Conversión</h2>
+
+            <div class="field">
+                <label class="label" for="LocalAmount">Monto en moneda local</label>
+                <div class="field has-addons">
+                    <div class="control">
+                        <span class="button is-static">DOP</span>
+                    </div>
+                    <div class="control is-expanded">
+                        <input class="input" id="LocalAmount" name="LocalAmount" type="number" min="0" step="0.01" placeholder="0.00" required />
+                    </div>
+                </div>
+            </div>
+
+            <div class="columns">
+                <div class="column">
+                    <div class="field">
+                        <label class="label" for="CurrencyRate">Tasa de la moneda extranjera</label>
+                        <div class="control">
+                            <input class="input is-static" id="CurrencyRate" type="text" placeholder="—" readonly />
+                        </div>
+                        <p class="help">Pesos dominicanos por cada unidad.</p>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label class="label" for="ConvertedAmount">Monto convertido</label>
+                        <div class="control">
+                            <input class="input is-static" id="ConvertedAmount" type="text" placeholder="—" readonly />
+                        </div>
+                        <p class="help">En la moneda seleccionada.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <button class="button is-primary is-fullwidth" type="submit">Convertir</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
