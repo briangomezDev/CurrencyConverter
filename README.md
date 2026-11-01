@@ -34,7 +34,7 @@ Run the app from the inner `CurrencyConverter` folder, because the rates file is
 
 ## Exchange rate data
 
-Rates are read from an Excel workbook included in the repository: [`CurrencyConverter/wwwroot/resource/TASAS_CONVERTIBLES_OTRAS_MONEDAS.xlsx`](CurrencyConverter/wwwroot/resource/TASAS_CONVERTIBLES_OTRAS_MONEDAS.xlsx).
+Rates come from the files published by the Banco Central de la República Dominicana (the Central Bank of the Dominican Republic). The app reads them from an Excel workbook included in the repository: [`CurrencyConverter/wwwroot/resource/TASAS_CONVERTIBLES_OTRAS_MONEDAS.xlsx`](CurrencyConverter/wwwroot/resource/TASAS_CONVERTIBLES_OTRAS_MONEDAS.xlsx).
 
 The app doesn't fetch live rates, so results only cover the dates in that file. To add newer rates, replace the workbook with an updated copy that has the same layout.
 
@@ -64,3 +64,7 @@ If the request is invalid or there is no rate for that date, the response is sti
 ```json
 { "success": false, "errorMessage": "No hay tasa para esta moneda en esa fecha. Prueba con otra fecha." }
 ```
+
+## License
+
+The source code is available under the [MIT License](LICENSE). The license doesn't cover the exchange rate data, which comes from the Banco Central de la República Dominicana, or the third-party libraries in `wwwroot/lib` and `wwwroot/css`, which keep their own licenses.
