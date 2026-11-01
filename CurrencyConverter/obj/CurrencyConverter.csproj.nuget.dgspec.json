@@ -48,6 +48,14 @@
             "ClosedXML": {
               "target": "Package",
               "version": "[0.105.1, )"
+            },
+            "ErrorOr": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[12.2.0, )"
             }
           },
           "imports": [

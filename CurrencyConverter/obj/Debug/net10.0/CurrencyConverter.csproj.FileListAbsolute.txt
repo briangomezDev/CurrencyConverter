@@ -105,3 +105,6 @@
 /home/brian-alexander-gomez/Repos/CurrencyConverter/CurrencyConverter/obj/Debug/net10.0/CurrencyConverter.pdb
 /home/brian-alexander-gomez/Repos/CurrencyConverter/CurrencyConverter/obj/Debug/net10.0/CurrencyConverter.genruntimeconfig.cache
 /home/brian-alexander-gomez/Repos/CurrencyConverter/CurrencyConverter/obj/Debug/net10.0/ref/CurrencyConverter.dll
+/home/brian-alexander-gomez/Repos/CurrencyConverter/CurrencyConverter/obj/Debug/net10.0/CurrencyConverter.sourcelink.json
+/home/brian-alexander-gomez/Repos/CurrencyConverter/CurrencyConverter/bin/Debug/net10.0/FluentValidation.dll
+/home/brian-alexander-gomez/Repos/CurrencyConverter/CurrencyConverter/bin/Debug/net10.0/ErrorOr.dll
