@@ -33,7 +33,7 @@ sealed class CurrencyService : ICurrencyService
         var currency = currencies.FirstOrDefault(c => c.CurrencyCode == request.CurrencyCode && c.Year == request.Year && c.MonthCode == request.MonthCode && c.Day == request.Day);
         if (currency == null)
         {
-            return Error.NotFound("Currency.NotFound", "Currency not found");
+            return Error.NotFound("Currency.NotFound", "No hay tasa para esta moneda en esa fecha. Prueba con otra fecha.");
         }
 
         return currency.CurrencyRate;

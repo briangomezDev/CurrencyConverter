@@ -14,20 +14,20 @@ public class CurrencyRequestValidator : AbstractValidator<CurrencyRequest>
     public CurrencyRequestValidator()
     {
         RuleFor(request => request.CurrencyCode)
-            .NotEmpty().WithMessage("Currency code is required.");
+            .NotEmpty().WithMessage("Selecciona una moneda.");
 
         RuleFor(request => request.Year)
-            .InclusiveBetween(MinYear, DateTime.Now.Year).WithMessage($"Year must be between {MinYear} and {DateTime.Now.Year}.");
+            .InclusiveBetween(MinYear, DateTime.Now.Year).WithMessage($"El año debe estar entre {MinYear} y {DateTime.Now.Year}.");
 
         RuleFor(request => request.MonthCode)
             .Cascade(CascadeMode.Stop)
-            .NotEmpty().WithMessage("Month code is required.")
-            .Must(BeAValidMonthCode).WithMessage("Month code must be a valid month abbreviation (e.g., Ene, Feb, Mar, etc.).");
+            .NotEmpty().WithMessage("Selecciona un mes.")
+            .Must(BeAValidMonthCode).WithMessage("El mes no es válido.");
 
         RuleFor(request => request.Day)
             .Cascade(CascadeMode.Stop)
-            .InclusiveBetween(1, 31).WithMessage("Day must be between 1 and 31.")
-            .Must(ExistInMonth).WithMessage("Day does not exist in the given month.");
+            .InclusiveBetween(1, 31).WithMessage("El día debe estar entre 1 y 31.")
+            .Must(ExistInMonth).WithMessage("Ese día no existe en el mes indicado.");
     }
 
     private static bool BeAValidMonthCode(string monthCode)
